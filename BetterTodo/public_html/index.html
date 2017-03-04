@@ -1,0 +1,69 @@
+
+
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>Appka</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <link rel="shortcut icon" href="">
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+        
+        <link rel="stylesheet" type="text/css" href="http://cdn.jtsage.com/datebox/latest/jqm-datebox.min.css">
+        <script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.core.min.js"></script>
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="todo.js" ></script>
+
+    </head>
+    
+    <body>
+    <div data-role="page" id="page1">
+
+        <div data-role="header">
+          <h1>TODO example</h1>
+        </div>
+
+        <div data-role="main" class="ui-content"> 
+          <a href="#addDialog" data-transition="fade" class="ui-btn" id="addTask">Add Task</a>            
+          <a href="#removeDialog" data-transition="fade" class="ui-btn" onClick="clearTodo();" id="removeAll">Remove All</a>
+        </div>
+
+        <div data-role="footer">  
+            <ul data-role="listview" data-inset="true" data-split-icon="minus" data-split-theme="d" id="todoList"></ul>
+        </div>
+    </div>
+          
+    <div data-role="page" data-dialog="true" id="addDialog" data-title="TODO">
+        
+        <div data-role="header">
+            <h1>TODO</h1>
+        </div>
+
+        <div data-role="main" class="ui-content">
+            <div id="addDialogText"></div> 
+
+            <div data-role="filedcontain">
+                <label for="name">Enter your task:</label>
+                <input type="text" id="taskName" placeholder="e.g. go to the shop">
+                <label for="name">Enter date:</label>
+                <input type="date" id="date" placeholder="">
+            </div>      
+        </div>
+
+        <div data-role="footer">            
+            <a href="#page1" data-transition="fade" class="ui-btn" id="backBtn">Back</a>
+            <a href="#page1" data-transition="fade" class="ui-btn" id="backBtn" onClick="saveTodo();">Submit</a>
+            
+        </div>        
+    </div>        
+    
+</body>
+</html>
+
