@@ -45,18 +45,33 @@ and open the template in the editor.
         <div data-role="header">
             <h1>TODO</h1>
         </div>
-
-        <div data-role="main" class="ui-content">
+            <div data-role="main" class="ui-content">
             <div id="addDialogText"></div> 
-
             <div data-role="filedcontain">
-                <label for="name">Enter your task:</label>
+                <label for="name">Enter your task name:</label>
                 <input type="text" id="taskName" placeholder="e.g. go to the shop">
-                <label for="name">Enter date:</label>
+                <label for="name">Enter your task note:</label>
+                <input type="text" id="taskNote" placeholder="e.g. Adress">
+                <label for="name">Task date:</label>
                 <input type="date" id="date" placeholder="">
+                <label>Priority task:</label>
+            <div data-role="controlgroup">
+                <label for="Low">Low</label>
+                <label for="Medium">Medium</label>
+                <label for="High">High</label>
+                <input type="checkbox" name="Low" id="Low" data-theme="b">
+                <input type="checkbox" name="Medium" data-theme="b" id="Medium">
+                <input type="checkbox" name="High" data-theme="b" id="High">
+            </div> 
+                <label for="slider-1">Volume:</label>
+                <input type="range" name="Volume" id="slider-1" min="0" max="100" value="80">
+                <label for="flip-1">Vibration:</label>
+                <select id="flip-1" name="Vibration" data-role="slider">
+                    <option value="off">Off</option>
+                    <option value="on">On</option>
+                </select>
             </div>      
-        </div>
-
+            </div>
         <div data-role="footer">            
             <a href="#page1" data-transition="fade" class="ui-btn" id="backBtn">Back</a>
             <a href="#page1" data-transition="fade" class="ui-btn" id="backBtn" onClick="saveTodo();">Submit</a>
