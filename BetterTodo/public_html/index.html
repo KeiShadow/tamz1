@@ -33,11 +33,17 @@ and open the template in the editor.
         <div data-role="main" class="ui-content"> 
           <a href="#addDialog" data-transition="fade" class="ui-btn" id="addTask">Add Task</a>            
           <a href="#removeDialog" data-transition="fade" class="ui-btn" onClick="clearTodo();" id="removeAll">Remove All</a>
+          <button type="button" data-icon="plus" data-iconpos="right" data-mini="true" data-inline="true" id="expand">Expand last</button>
+          <button type="button" data-icon="minus" data-iconpos="right" data-mini="true" data-inline="true" id="collapse">Collapse last</button>
+          
         </div>
 
         <div data-role="footer">  
-            <ul data-role="listview" data-inset="true" data-split-icon="minus" data-split-theme="d" id="todoList"></ul>
+           <!--> <ul data-role="listview" data-inset="true" data-split-icon="minus" data-split-theme="d" id="todoList"><!-->
+        <div data-role="collapsibleset" data-inset="true" id="set">
+                 
         </div>
+       <!--> </div><!-->
     </div>
           
     <div data-role="page" data-dialog="true" id="addDialog" data-title="TODO">
@@ -48,22 +54,22 @@ and open the template in the editor.
             <div data-role="main" class="ui-content">
             <div id="addDialogText"></div> 
             <div data-role="filedcontain">
-                <label for="name">Enter your task name:</label>
+                <label for="taskName">Enter your task name:</label>
                 <input type="text" id="taskName" placeholder="e.g. go to the shop">
-                <label for="name">Enter your task note:</label>
+                <label for="taskNote">Enter your task note:</label>
                 <input type="text" id="taskNote" placeholder="e.g. Adress">
-                <label for="name">Task date:</label>
+                <label for="date">Task date:</label>
                 <input type="date" id="date" placeholder="">
                 <label>Priority task:</label>
-            <div data-role="controlgroup">
-                <label for="radio-choice-v-2a">Low</label>
-                <label for="radio-choice-v-2b">Medium</label>
-                <label for="radio-choice-v-2c">High</label>
-                <input type="radio" name="Low" id="radio-choice-v-2a" value="on" checked="checked">
-                <input type="radio" name="Medium" id="radio-choice-v-2b" value="off">
-                <input type="radio" name="High" id="radio-choice-v-2c" value="other">
-                
-            </div> 
+                <fieldset data-role="controlgroup">
+                    <legend>Vertical:</legend>
+                    <input type="radio" name="radio-choice-v-2" id="Low" value="Low" checked="checked">
+                    <label for="Low">Low</label>
+                    <input type="radio" name="radio-choice-v-2" id="Medium" value="Medium">
+                    <label for="Medium">Medium</label>
+                    <input type="radio" name="radio-choice-v-2" id="High" value="High">
+                    <label for="High">High</label>
+                </fieldset>
                 <label for="slider-1">Volume:</label>
                 <input type="range" name="Volume" id="slider-1" min="0" max="100" value="80">
                 <label for="flip-1">Vibration:</label>
@@ -75,7 +81,7 @@ and open the template in the editor.
             </div>
         <div data-role="footer">            
             <a href="#page1" data-transition="fade" class="ui-btn" id="backBtn">Back</a>
-            <a href="#page1" data-transition="fade" class="ui-btn" id="backBtn" onClick="saveTodo();">Submit</a>
+            <a href="#page1" data-transition="fade" class="ui-btn" id="submit" onClick="saveTodo();">Submit</a>
             
         </div>        
     </div>        

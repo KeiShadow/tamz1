@@ -5,24 +5,47 @@
  */
 
 $(document).on("pagecreate", "#page1", function(event)
-{
+{ 
     showTodo();
 });
 
-function saveTodo()
-{
-    var indx = localStorage.length;
-    var todoText = $("#taskName").val();
-    var todoDate = $("#date").val();
-    if(todoText.length)
-    {
-        localStorage['task_'+indx] = todoText +" Date: " +todoDate ;
-        //localStorage.setItem('task_'+indx,todoText);
-	$("#todoList").listview();
-	$("#todoList").listview("refresh"); 
-        
+
+//song Trndsttr (Lucian﻿ Remix) [feat. M. Maggie]” ― Black Coast
+ var myObj, myNote, text, obj;
+var indx = localStorage.length;
+  
+   
+   function getPriority(){
+       if(document.getElementById('Low').checked){
+    
+       var priority = $("#Low").val();
+       return priority;
+    }
+    else if(document.getElementById('Medium').checked){
+    
+       var priority = $("#Medium").val(); 
+       return priority;
+    }
+    else{
+    var priority = $("#High").val();
+      return priority;
     }
     
+   }
+   
+
+
+function saveTodo()
+{
+    var taskName = $("#taskName").val();
+    var taskNote = $("#taskNote").val();
+    var date = $("#date").val();
+    var volume =$("#slider-1").val();
+    var vibration= $("#flip-1").val();
+    var text ={"Name":""+taskName+"","Note":""+taskNote+"","Date":""+date+"","Priority":""+getPriority()+"","Volume":""+volume+"","Vibration":""+vibration+""};
+    
+    var myNote = JSON.stringify(text);
+    localStorage.setItem("myNote",myNote);
     
     showTodo();
     
@@ -32,10 +55,11 @@ function clearTodo()
 {
     localStorage.clear();
     indx = localStorage.length;
-    $("#todoList").empty();
-    $("#todoList").listview ("refresh");
+    $("#set").empty();
+    $("#set").listview ("refresh");
 
 }
+
 function removeTodo(id){
   
   indx=localStorage.length;
@@ -43,30 +67,32 @@ function removeTodo(id){
   alert(id);
   localStorage.removeItem(id);
   for(var i=0;i<localStorage.length;i++){
-     if(!localStorage.getItem('task_'+i)){
-         localStorage.setItem('task_'+i,localStorage.getItem('task_'+(i+1)));
-         localStorage.removeItem('task_'+(i+1));
+     if(!localStorage.getItem('myNote'+i)){
+         localStorage.setItem('myNote'+i,localStorage.getItem('myNote'+(i+1)));
+         localStorage.removeItem('myNote'+(i+1));
          
      }
   
   }
     showTodo();
-
-    
 }
+
 function showTodo()
 {
-    var todoText = "";
-    var todoDate ="";
-    $("#todoList").empty();
-    for (var i = 0; i < localStorage.length; i++)
-    {
-        todoText = localStorage.getItem('task_'+i);
-        //todoDate = localStorage.getItem('task_'+i);
-       //$("#todoList").append("<li>"+todoText+"</li>"); 
-       $("#todoList").append('<li><a href="#">'+todoText+" "+todoDate+'</a><a href="#"data-role="button" data-icon="delete" onClick="removeTodo(id);" id="task_'+i+'">Remove</a></li>'); 
-       // $("#todoList").append('<li><a href="#">'+task.name+" "+task.date+'</a><a href="#" data-role="button" data-icon="delete" onClick="removeTodo(id);" id="task_'+i+'">Remove</a></li>');                     
-    } 
-    $("#todoList").listview();
-    $("#todoList").listview("refresh"); 
+    text = localStorage.getItem('myNote');
+    obj = JSON.parse(text);   
+     
+       var nextId = 1;
+       var content = "<div data-role='collapsible' id='set" + nextId + "'><h3>" + obj.Name + "</h3>\n\
+        <p>Note: <br>"+obj.Note+"<br> Date: <br> "+obj.Date+"<br> Priority: <br>"+obj.Priority+"<br> Volume: <br> "+obj.Volume+"<br> Vibration: <br>"+obj.Vibration+"</p></div>";
+    $( "#set" ).append( content ).collapsibleset( "refresh" );
+    
+    $("#set").listview();
+    $("#set").listview("refresh"); 
+      $( "#expand" ).click(function() {
+        $("#set").children(":last").collapsible( "expand" );
+    });
+    $( "#collapse" ).click(function() {
+        $( "#set" ).children( ":last" ).collapsible( "collapse" );
+    });
 }
