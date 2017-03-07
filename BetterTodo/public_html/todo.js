@@ -52,10 +52,9 @@ function saveTodo()
 
 function clearTodo()
 {
-    text = localStorage.getItem('myNote');
-    obj = JSON.parse(text);
-     delete obj[0];        
-       
+  text = localStorage.getItem('myNote');
+  obj = JSON.parse(text);
+        
     $("#set").empty();
     $("#set").listview ("refresh");
 }
@@ -85,7 +84,7 @@ function showTodo()
     obj = JSON.parse(text);
   
     var nextId = 1;
-   var content = '<div data-role="collapsible" id="set"'+nextId+'"><h3>'+obj.Name+'</h3><p>Note: <br>'+obj.Note+'<br> Date: <br> '+obj.Date+'<br> Priority: <br>'+obj.Priority+'<br> Volume: <br> '+obj.Volume+'<br> Vibration: <br>'+obj.Vibration+'</p></div>';
+  var content = '<div data-role="collapsible" id="set"'+nextId+'"><h3>'+obj.Name+'</h3><p>Note: <br>'+obj.Note+'<br> Date: <br> '+obj.Date+'<br> Priority: <br>'+obj.Priority+'<br> Volume: <br> '+obj.Volume+'<br> Vibration: <br>'+obj.Vibration+'</p></div>';
    $( "#set" ).append( content ).collapsibleset( "refresh" );
      nextId++;
       
