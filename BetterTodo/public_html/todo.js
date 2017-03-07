@@ -33,8 +33,7 @@ var indx = localStorage.length;
  
 function saveTodo()
 {
-    var myTask, myObj,i,count;
- if($("#taskName").val()!==""){
+    var myTask, myObj,i,count, value;
         var taskName = $("#taskName").val();
         var taskNote = $("#taskNote").val();
         var date = $("#date").val();
@@ -46,12 +45,16 @@ function saveTodo()
         };
         count=0;
         i=0;
-        myTask = JSON.stringify(myObj.task);
-        // localStorage.setItem("myNote"+i+"",myTask);  
-        localStorage.setItem("myNote",myTask);  
-        showTodo(); 
-   }
-   
+        if (typeof(Storage)!=="undefined" && localStorage != null){
+         var myTask = new Object();
+         myTask = JSON.stringify(myObj.task,(key,value)=>{
+            return value;
+         });
+         localStorage.setItem("myNote",myTask);    
+            
+        } 
+       
+        showTodo();   
     
 }
 
@@ -63,7 +66,6 @@ function clearTodo()
   obj= JSON.parse(text,(key,value)=>{
          return value;
     });    
-    alert(obj.Name);
     
   $("#set").empty();
   $("#set").listview ("refresh");
@@ -91,21 +93,22 @@ function removeTodo(id){
 function showTodo()
 {
        var text,string,key,value, Name, Note, Date, Priority, Volume, Vibration;
-    text = localStorage.getItem("myNote");
-    var obj = new Object();
-   if(text!==""){
-    obj= JSON.parse(text,(key,value)=>{
-         return value;
-    });    
-    var nextId = 1;
-    var content = '<div data-role="collapsible" id="set"'+nextId+'"><h3>'+obj.Name+'</h3><p>Note: <br>'+obj.Note+'<br> Date: <br> '+obj.Date+'<br> Priority: <br>'+obj.Priority+'<br> Volume: <br> '+obj.Volume+'<br> Vibration: <br>'+obj.Vibration+'</p></div>';
-   $( "#set" ).append( content ).collapsibleset( "refresh" );
-     nextId++;
-      $("#set").listview();
-    $("#set").listview("refresh"); 
-   }
-   
-    
+       
+   if (localStorage.length!=0) {
+        text = localStorage.getItem("myNote");
+        var obj = new Object();
+         obj= JSON.parse(text,(key,value)=>{
+          return value;
+         });    
+        var nextId = 1;
+        var content = '<div data-role="collapsible" id="set"'+nextId+'"><h3>'+obj.Name+'</h3><p>Note: <br>'+obj.Note+'<br> Date: <br> '+obj.Date+'<br> Priority: <br>'+obj.Priority+'<br> Volume: <br> '+obj.Volume+'<br> Vibration: <br>'+obj.Vibration+'</p></div>';
+        $( "#set" ).append( content ).collapsibleset( "refresh" );
+             nextId++; 
+   }    
+
+     $("#set").listview();
+    $("#set").listview("refresh");     
+
    
       $( "#expand" ).click(function() {
         $("#set").children(":last").collapsible( "expand" );
