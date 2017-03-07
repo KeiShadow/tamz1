@@ -33,7 +33,9 @@ var indx = localStorage.length;
  
 function saveTodo()
 {
-    var myTask, myObj,i,count, value;
+    var myTask, myObj,i,value,index;
+        index = localStorage.length;
+        alert(index);
         var taskName = $("#taskName").val();
         var taskNote = $("#taskNote").val();
         var date = $("#date").val();
@@ -42,18 +44,21 @@ function saveTodo()
         var pr= getPriority();
         myObj ={
           "task":{ "Name":""+taskName+"","Note":""+taskNote+"","Date":""+date+"","Priority":""+pr+"","Volume":""+volume+"","Vibration":""+vibration+""}
-        };
-        count=0;
-        i=0;
-        if (typeof(Storage)!=="undefined" && localStorage != null){
+        }; 
+        
+        if (typeof(Storage)!=="undefined" && localStorage != null)
+        {
+         
          var myTask = new Object();
          myTask = JSON.stringify(myObj.task,(key,value)=>{
-            return value;
+             return value;
          });
-         localStorage.setItem("myNote",myTask);    
-            
+          
+          localStorage.setItem("myNote"+index,myTask);  
+          $("#set").listview();
+          $("#set").listview("refresh"); 
+          index++;
         } 
-       
         showTodo();   
     
 }
@@ -66,43 +71,48 @@ function clearTodo()
 }
 
 function removeTodo(id){
-  
+  var text, indx, key, value;
   indx=localStorage.length;
-  
-  alert(id);
   localStorage.removeItem(id);
   for(var i=0;i<localStorage.length;i++){
-     if(!localStorage.getItem('task_'+i)){
-         localStorage.setItem('task_'+i,localStorage.getItem('task_'+(i+1)));
-         localStorage.removeItem('task_'+(i+1));
-         
+     if(!localStorage.getItem("myNote"+i)){
+         localStorage.setItem("myNote"+i,localStorage.getItem("myNote"+(i+1)));
+         localStorage.removeItem("myNote"+(i+1));   
      }
-  
   }
-    showTodo();
-
-    
+  showTodo();  
 }
 
 function showTodo()
 {
-       var text,string,key,value, Name, Note, Date, Priority, Volume, Vibration;
-       
-   if (localStorage.length!=0) {
-        text = localStorage.getItem("myNote");
+    var text,key,value,i, index;
+    var nextId = 1;
+    index=localStorage.length;
+    if (localStorage.length!=0) 
+    {
+       for(var i=0;i<localStorage.length;i++){  
+        text = localStorage.getItem("myNote"+i);   
+         
         var obj = new Object();
          obj= JSON.parse(text,(key,value)=>{
           return value;
-         });    
-        var nextId = 1;
-        var content = '<div data-role="collapsible" id="set"'+nextId+'"><h3>'+obj.Name+'</h3><p>Note: <br>'+obj.Note+'<br> Date: <br> '+obj.Date+'<br> Priority: <br>'+obj.Priority+'<br> Volume: <br> '+obj.Volume+'<br> Vibration: <br>'+obj.Vibration+'</p></div>';
-        $( "#set" ).append( content ).collapsibleset( "refresh" );
-             nextId++; 
+         });     
+        
+        var content = '<div data-role="collapsible" id="set"'+nextId+'"><h3>'+obj.Name+'</h3>\n\
+        <p>Note: <br>'+obj.Note+'<br> \n\
+        Date: <br> '+obj.Date+'<br> \n\
+        Priority: <br>'+obj.Priority+'<br> \n\
+        Volume: <br> '+obj.Volume+'<br> \n\
+        Vibration: <br>'+obj.Vibration+'</p>\n\
+        <a href="#" data-role="button" data-icon="delete" onClick="removeTodo(id);" id="myNote'+i+'">Remove</a></div>';
+            
+        $( "#set" ).append( content ).collapsibleset( "refresh" );      
+       }
    }    
 
-     $("#set").listview();
-    $("#set").listview("refresh");     
-
+      
+       $("#set").listview();
+    $("#set").listview("refresh");   
    
       $( "#expand" ).click(function() {
         $("#set").children(":last").collapsible( "expand" );
@@ -110,4 +120,5 @@ function showTodo()
     $( "#collapse" ).click(function() {
         $( "#set" ).children( ":last" ).collapsible( "collapse" );
     });
+    nextId++;
 }
