@@ -60,13 +60,7 @@ function saveTodo()
 
 function clearTodo()
 {
-    var text, key, value, obj;
-  text = localStorage.getItem("myNote");
- 
-  obj= JSON.parse(text,(key,value)=>{
-         return value;
-    });    
-    
+  localStorage.clear(); 
   $("#set").empty();
   $("#set").listview ("refresh");
 }
