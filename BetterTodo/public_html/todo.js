@@ -31,9 +31,9 @@ function getPriority()
 
 function saveTodo()
 {
+    //deklarace proměnných
     var myTask, myObj, i, value, index;
-    index = localStorage.length;
-    alert(index);
+
     var taskName = $("#taskName").val();
     var taskNote = $("#taskNote").val();
     var date = $("#date").val();
@@ -50,30 +50,29 @@ function saveTodo()
             "Vibration": "" + vibration + ""
         }
     };
-
+    index = localStorage.length;
     if (typeof (Storage) !== "undefined" && localStorage != null)
     {
-
+        //Vytvoření objektu myTask a poté se hodnoty z myObj pomoci json nahraji do myTask
         var myTask = new Object();
         myTask = JSON.stringify(myObj.task, (key, value) => {
             return value;
         });
+        //pomocí lokalStorage.setItem nastavíme hodnoty z tasku do paměti
         localStorage.setItem("myNote" + index, myTask);
-        $("#set").collapsibleset();
-        $("#set").collapsibleset("refresh");
         index++;
     }
     showTodo();
 
 }
-
+/*Funkce pro smazání localStorage*/
 function clearTodo()
 {
     localStorage.clear();
     $("#set").empty();
     $("#set").collapsibleset("refresh");
 }
-
+/*Funkce která maže id objektu*/
 function removeTodo(id) {
     var text, indx, key, value;
     indx = localStorage.length;
@@ -84,29 +83,44 @@ function removeTodo(id) {
             localStorage.removeItem("myNote" + (i + 1));
         }
     }
-    text = localStorage.getItem("myNote" + i);
-
-    var obj = new Object();
-    obj = JSON.parse(text, (key, value) => {
-        return value;
-    });
-    delete obj;
-
     showTodo();
 }
+//function update(id) {
+//    var i,value,key;
+//    alert(id);
+//    
+//    for (var i = 0; i < localStorage.length; i++) {
+//        if (localStorage.getItem(id)) { 
+//            var Obj = new Object();
+//            var text = localStorage.getItem(id);
+//            Obj = JSON.parse(text, (key, value) => {
+//                return value;
+//            });
+//           
+//        }
+//    }
+//     $("#set").listview();
+//    $("#set").collapsibleset("refresh");
+//    showTodo();
+//}
 
-
+/*Ukazuje seznam poznámek*/
 function showTodo()
 {
     var text, key, value, i, index;
     var nextId = 1;
+
     index = localStorage.length;
-    var obj = new Object();
+    var obj = new Object(); //Vytvoření objektu pro JSON.parse
     $("#set").empty();
     if (localStorage.length != 0)
     {
         for (var i = 0; i < localStorage.length; i++) {
             text = localStorage.getItem("myNote" + i);
+
+            /*pomocí getItem můžeme vytáhneme hodnoty z paměti a uložíme je do objektu obj.
+             *  JSON parse tyto objekty vratí do obj (objekt)
+             */
 
             obj = JSON.parse(text, (key, value) => {
                 return value;
@@ -118,12 +132,13 @@ function showTodo()
                 Priority: <br>' + obj.Priority + '<br> \n\
                 Volume: <br> ' + obj.Volume + '<br> \n\
                 Vibration: <br>' + obj.Vibration + '</p>\n\
-                <a href="#" data-role="button" data-icon="delete" onClick="removeTodo(id);" id="myNote' + i + '">Remove</a></div>';
+                <button class="ui-btn "data-role="button" data-icon="delete" onClick="removeTodo(id);" id="myNote' + i + '">Remove</button>\n\
+               <a href="#UpdateDialog" data-transition="fade" class="ui-btn" onClick ="udpate(id)" id="myNote' + i + '">Update</a></div>'
+                    ;
             $("#set").append(content);
         }
-
-
     }
+
     $("#set").listview();
     $("#set").collapsibleset("refresh");
 
