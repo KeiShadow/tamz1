@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<!--
+To change this license header, choose License Headers in Project Properties.
+To change this template file, choose Tools | Templates
+and open the template in the editor.
+-->
+<html>
+    <head>
+        <title>TODO supply a title</title>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
+        <link rel="shortcut icon" href="">
+        <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
+        <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
+
+        <link rel="stylesheet" type="text/css" href="http://cdn.jtsage.com/datebox/latest/jqm-datebox.min.css">
+        <script type="text/javascript" src="http://cdn.jtsage.com/datebox/latest/jqm-datebox.core.min.js"></script>
+        <script type="text/javascript" src="http://dev.jtsage.com/cdn/datebox/latest/jqm-datebox.mode.datebox.min.js"></script>
+        <script src="testapi.js"></script>
+    </head>
+    <body>
+        <div data-role="page" id="page1">
+            <div data-role="main" class="ui-content">
+                <div data-role="">
+                    <label for="URLCode">URL CODE</label>  
+                    <input type="text" id="URLCode" value="http://homel.vsb.cz/~mor03/TAMZ/TAMZ.php" >
+                    <label for="Login">Login</label>  
+                    <input type="text" id="Login" value="nog0030" >
+                    <label for="APIKEY" >Recive API KEY</label>  
+                    <input type="text" id="APIKEY" readonly="readonly" >
+                    <div data-role="controlgroup" data-type="horizontal">
+                        <p>Info:</p>
+                        <a href="#" class="ui-btn" onclick="LoadKey();">Request code</a>
+                        <a href="#" class="ui-btn" onclick="testApi();">Test Api Key</a>
+                    </div><br>
+                </div>
+            </div>
+            <div data-role="footer">
+                <h1>Footer Text</h1>
+            </div>
+        </div>
+    </body>
+</html>
