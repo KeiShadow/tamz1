@@ -11,7 +11,7 @@ $(document).on("pagecreate", "#page1", function (event)
 
 //song Trndsttr (Lucian﻿ Remix) [feat. M. Maggie]” ― Black Coast
 
-var indx = localStorage.length;
+var index = localStorage.length;
 function getPriority()
 {
     if (document.getElementById('Low').checked) {
@@ -51,7 +51,7 @@ function saveTodo()
         }
     };
     index = localStorage.length;
-    if (typeof (Storage) !== "undefined" && localStorage != null)
+    if (typeof (Storage) !== "undefined" && localStorage !== null)
     {
         //Vytvoření objektu myTask a poté se hodnoty z myObj pomoci json nahraji do myTask
         var myTask = new Object();
@@ -74,8 +74,8 @@ function clearTodo()
 }
 /*Funkce která maže id objektu*/
 function removeTodo(id) {
-    var text, indx, key, value;
-    indx = localStorage.length;
+    var text, index, key, value;
+    index = localStorage.length;
     localStorage.removeItem(id);
     for (var i = 0; i < localStorage.length; i++) {
         if (!localStorage.getItem("myNote" + i)) {
@@ -85,24 +85,59 @@ function removeTodo(id) {
     }
     showTodo();
 }
-//function update(id) {
-//    var i,value,key;
-//    alert(id);
-//    
-//    for (var i = 0; i < localStorage.length; i++) {
-//        if (localStorage.getItem(id)) { 
-//            var Obj = new Object();
-//            var text = localStorage.getItem(id);
-//            Obj = JSON.parse(text, (key, value) => {
-//                return value;
-//            });
-//           
-//        }
-//    }
-//     $("#set").listview();
-//    $("#set").collapsibleset("refresh");
-//    showTodo();
-//}
+function getInfo(id){
+   var i,value,key;
+  for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.getItem(id)) { 
+            var Obj = new Object();
+            var text = localStorage.getItem(id);
+            Obj = JSON.parse(text, (key, value) => {
+                return value;
+            });
+            $("#taskNameU").val(Obj.Name); 
+//            Obj.Name = $("#taskNameU").val();
+//            Obj.Note = $("#taskNoteU").val();
+//            Obj.Date = $("#dateU").val();
+//            Obj.Priority= getPriority();
+//            Obj.Volume = $("#slider-1U").val();
+//            Obj.Vibration = $("#flip-1U").val();
+          
+        }
+    }  
+     $("#set").listview();
+    $("#set").collapsibleset("refresh");
+    
+}
+function update(id) {
+    var i,value,key;
+    
+    for (var i = 0; i < localStorage.length; i++) {
+        if (localStorage.getItem(id)) { 
+            var Obj = new Object();
+            var text = localStorage.getItem(id);
+            Obj = JSON.parse(text, (key, value) => {
+                return value;
+            });
+
+            Obj.Name = $("#taskNameU").val();
+            Obj.Note = $("#taskNoteU").val();
+            Obj.Date = $("#dateU").val();
+            Obj.Priority= getPriority();
+            Obj.Volume = $("#slider-1U").val();
+            Obj.Vibration = $("#flip-1U").val();
+           var myTask = new Object();
+           myTask = JSON.stringify(Obj, (key,value)=>{
+               return value;
+               
+           });
+           localStorage.setItem(id,myTask);
+        }
+    }
+     $("#set").listview();
+    $("#set").collapsibleset("refresh");
+    showTodo();
+
+}
 
 /*Ukazuje seznam poznámek*/
 function showTodo()
@@ -113,7 +148,7 @@ function showTodo()
     index = localStorage.length;
     var obj = new Object(); //Vytvoření objektu pro JSON.parse
     $("#set").empty();
-    if (localStorage.length != 0)
+    if (localStorage.length !== 0)
     {
         for (var i = 0; i < localStorage.length; i++) {
             text = localStorage.getItem("myNote" + i);
@@ -127,26 +162,23 @@ function showTodo()
             });
 
             var content = '<div data-role="collapsible" id="set"' + nextId + '"><h3>' + obj.Name + '</h3>\n\
-                <p>Note: <br>' + obj.Note + '<br> \n\
-                Date: <br> ' + obj.Date + '<br> \n\
-                Priority: <br>' + obj.Priority + '<br> \n\
-                Volume: <br> ' + obj.Volume + '<br> \n\
-                Vibration: <br>' + obj.Vibration + '</p>\n\
-                <button class="ui-btn "data-role="button" data-icon="delete" onClick="removeTodo(id);" id="myNote' + i + '">Remove</button>\n\
-               <a href="#UpdateDialog" data-transition="fade" class="ui-btn" onClick ="udpate(id)" id="myNote' + i + '">Update</a></div>'
+                           <p>Note: <br>' + obj.Note + '<br> \n\
+                            Date: <br> ' + obj.Date + '<br> \n\
+                            Priority: <br>' + obj.Priority + '<br> \n\
+                            Volume: <br> ' + obj.Volume + '<br> \n\
+                            Vibration: <br>' + obj.Vibration + '</p>\n\
+                            <button class="ui-btn "data-role="button" data-icon="delete" onClick="removeTodo(id);" id="myNote' + i + '">Remove</button>\n\
+                            <a href="#UpdateDialog" data-transition="fade" class="ui-btn" onClick ="getInfo(id);" id="myNote' + i + '">Update</a></div>'
                     ;
+            
             $("#set").append(content);
+           //document.getElementById("submit1").id = "myNote" + i +""; 
         }
+        
     }
-
+    
     $("#set").listview();
     $("#set").collapsibleset("refresh");
 
-    $("#expand").click(function () {
-        $("#set").children(":last").collapsible("expand");
-    });
-    $("#collapse").click(function () {
-        $("#set").children(":last").collapsible("collapse");
-    });
     nextId++;
 }
