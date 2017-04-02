@@ -9,9 +9,8 @@ $.getJSON('http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php',function(data){
            id = $(this).attr('id'); 
         });
         var rate= data['data'][id]['rate'];
-        var x =$('#Current').val() * rate;
-        document.getElementById('Next').value = x + ' '+data['data'][id]['code'];
-        
+        var x =$('#Current').val() * rate +' '+data['data'][id]['code'];
+        document.getElementById('Next').value = x;
         if($('#datum').val()===""){
             $('#datum').append(data['data'][id]['code']+' '+data['date'] +', ');
         }
