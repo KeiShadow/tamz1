@@ -4,7 +4,7 @@ $.getJSON('http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php',function(data){
        $('#Myselect').append('<option id='+i+' >'+data['data'][i]['code']+'= '+data['data'][i]['country_label']+'</option>');
    }
    $('#Myselect').change(function(){
-       var id
+       var id;
         $('select option:selected').each(function(){
            id = $(this).attr('id'); 
         });
@@ -16,4 +16,9 @@ $.getJSON('http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php',function(data){
         }
         
    });
+  
+   $('#lang').click(function(){
+       alert(data['lang']);
+       
+   })
 }); 
