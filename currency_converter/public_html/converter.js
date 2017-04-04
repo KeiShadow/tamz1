@@ -1,9 +1,6 @@
 //JSON data ze souboru do selectu + výpočet měny
 $.getJSON('http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php', function (data) {
     for (var i = 0; i < data['data'].length; i++) {
-                     
-        //$('#Myselect').append('<option id='+i+' >'+data['data'][i]['code']+'= '+data['data'][i]['country_label']+'</option>');
-        // $('#Myselect').append('<li id='+i+'><a href="#">'+data['data'][i]['code']+'= '+data['data'][i]['country_label']+'</a></li>  ');
         $('#MySelect').append('<a href="" id="' + i + '" class="a ui-btn ui-corner-all ui-shadow ui-shadow ui-screen-hidden">' + data['data'][i]['code'] + '= ' + data['data'][i]['country_label'] + '</a>');;
     }
     $('.a').click(function () {
