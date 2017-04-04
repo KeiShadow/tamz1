@@ -21,7 +21,7 @@ $.getJSON('http://homel.vsb.cz/~mor03/TAMZ/cnb_json.php', function (data) {
            document.getElementById('Next').value = x.toFixed(4) +" "+data['data'][id]['code'] ;
            ////logika vezmu nejdrive kolik chci rozmenit vydelim to menou cim to chci rozmenit a vynasobim to menou kterou to rozmenuji napr
            // 100 eur na usd vezmu (100/usd)*EUR
-          }else if(Split[i]==="CZE"){
+          }else if(Split[i]==="CZE"){ // měna pro české koruny se počítá jinak.
              var rate1 = data['data'][id]['rate']; // rate z dat  
              var x = ((Split[0] / rate1));
              document.getElementById('Next').value = x.toFixed(4)+" "+data['data'][id]['code'];
