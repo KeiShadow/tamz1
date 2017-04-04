@@ -6,20 +6,15 @@ and open the template in the editor.
 -->
 <html>
     <head>
-      
         <title>Currency Converter</title>
         <meta charset="UTF-8">
         <meta name="viewport" content="width=device-width, initial-scale=1.0">
-
         <link rel="stylesheet" href="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.css">
         <link rel="shortcut icon" href="">
         <script src="http://code.jquery.com/jquery-1.11.3.min.js"></script>
         <script src="http://code.jquery.com/mobile/1.4.5/jquery.mobile-1.4.5.min.js"></script>
-
-      <script type="text/javascript" src="converter.js"></script>
-
+        <script type="text/javascript" src="converter.js"></script>
     </head>
-    
     <body>
         <div data-role="page" id="page1">
             <div data-role="main" class="ui-content">
@@ -27,12 +22,25 @@ and open the template in the editor.
                     <label for="Current">CZE</label>  
                     <input type="text" id="Current" placeholder="etc.. 12CZE" >
                     <label for="Next">CUR</label>  
-                    <input type="text" id="Next"  disabled="true" >
-                    <select name="currencs" id="Myselect" onselect="select()"></select>
+                    <input type="text" id="Next">
+                    <form>
+                          <div class=" ui-input-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
+                            <input clas="find" data-type="search" data-enhanced="true" data-inset="false" id="pre-rendered-example-input" placeholder="Filter items...">
+                        </div>
+                        <div data-role="controlgroup" data-enhanced="true" data-filter="true" data-filter-reveal="true" data-input="#pre-rendered-example-input" class="ui-controlgroup ui-controlgroup-vertical ui-corner-all">
+                            <div class="ui-controlgroup-controls" id="MySelect">
+               
+                            </div>
+                        </div>
+                    </form>
+                    <!-- <ul id="Myselect" data-role="listview" data-filter="true" data-filter-reveal="true" data-filter-placeholder="Search curenc" data-inset="true">                
+                    </ul>
+                    <select name="currencs" id="Myselect"></select>-->
                     <p>Datum převodu do: <p id="datum"></p></p>
                 </div>
             </div>
             <div data-role="footer">
+
                 <button class="ui-btn" id="lang">Jazyk</button>
                 <h1>Petr Noga &ApplyFunction;</h1>
             </div>
