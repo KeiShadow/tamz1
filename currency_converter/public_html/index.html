@@ -20,20 +20,23 @@ and open the template in the editor.
             <div data-role="main" class="ui-content">
                 <div data-role="">
                     <label for="Current">Zadej částku ve tvaru číslo měna z které chceš měnit např. 100 EUR</label>  
-                    <input type="text" id="Current" placeholder="etc.. 12CZE" >
+                    <input type="text" id="Current" placeholder="etc.. 125 CZE" >
                     <label for="Next">Výsledek</label>  
                     <input type="text" id="Next">
                     <form>
                           <div class=" ui-input-search ui-body-inherit ui-corner-all ui-shadow-inset ui-input-has-clear">
-                            <input clas="find" data-type="search" data-enhanced="true" data-inset="false" id="pre-rendered-example-input" placeholder="Vyhledej měny">
+                            <input data-type="search" data-enhanced="true" data-inset="false" id="pre-rendered-example-input" placeholder="Vyhledej měny">
                         </div>
+                        
                         <div data-role="controlgroup" data-enhanced="true" data-filter="true" data-filter-reveal="true" data-input="#pre-rendered-example-input" class="ui-controlgroup ui-controlgroup-vertical ui-corner-all">
                             <div class="ui-controlgroup-controls" id="MySelect">
-               
+
                             </div>
                         </div>
                     </form>         
-                    <p>Datum převodu do: <p id="datum"></p></p>
+                    <p>Datum převodu do:
+                        <input id="datum" type="date" onchange="getDatum(this.value)"><br> 
+                </p>
                 </div>
             </div>
             <div data-role="footer">
